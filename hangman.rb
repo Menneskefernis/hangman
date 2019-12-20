@@ -8,7 +8,7 @@ class Game
     @words = dictionary
     @current_word = random_word
     @guess_state = initialize_guess_string
-    @attempts_left = 4
+    @attempts_left = 8
     @end_game = false
   end
 
@@ -27,9 +27,10 @@ class Game
 
   def play_round
     puts ""
-    puts "Guess a letter"
+    puts "What's your guess? Enter a letter from a-z."
     puts ""
     show_guess_state
+    puts ""
     input = get_input do |input|
               break input if (input =~ /[A-Za-z]/ && input.size == 1) || input == "save"
               puts "Enter ONE letter"
