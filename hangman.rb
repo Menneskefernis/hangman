@@ -27,15 +27,12 @@ class Game
 
   def play_round
     puts ""
-    puts "Make a guess"
+    puts "Guess a letter"
     puts ""
     show_guess_state
     input = get_input do |input|
-              if (input =~ /[A-Za-z]/ && input.size == 1) || input == "save"
-                break input
-              else
-                puts "Enter ONE letter"
-              end
+              break input if (input =~ /[A-Za-z]/ && input.size == 1) || input == "save"
+              puts "Enter ONE letter"
             end
 
     if input == "save"
@@ -92,10 +89,6 @@ class Game
       puts i.to_s + ": " + filename
       i += 1
     end
-  end
-
-  def pick_game
-
   end
 
   def dictionary
