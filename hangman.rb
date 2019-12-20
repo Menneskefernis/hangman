@@ -16,7 +16,7 @@ class Game
     puts "Welcome to a game of Hangman!"
     puts "You can save your progress any time by typing" + " save".green + "."
     puts ""
-    request_old_game unless Dir["./save_files/*.dat"].size == 0
+    request_old_game unless Dir["./save_files/*.dat"].empty?
  
     #puts current_word
 
