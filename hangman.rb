@@ -14,7 +14,7 @@ class Game
 
   def start    
     puts "Welcome to a game of Hangman!"
-    puts "You can save your progress any time by typing 'save'."
+    puts "You can save your progress any time by typing" + " 'save'".green + "."
     puts ""
     request_old_game
  
@@ -30,7 +30,14 @@ class Game
     puts "Make a guess"
     puts ""
     show_guess_state
-    input = get_input
+    input = get_input do |input|
+              if (input =~ /[A-Za-z]/ && input.size == 1) || input == "save"
+                break input
+              else
+                puts "Enter ONE letter"
+              end
+            end
+
     if input == "save"
       handle_save
     else
@@ -48,16 +55,16 @@ class Game
   end
 
   def request_old_game
-    puts "Would you like to load an old game? (y/n)".green
+    puts "Would you like to load an old game? (y/n)".light_blue
     
-    input = ""
-    loop do
-      input = gets.chomp.downcase
-      break if input == "y" || input == "n"
-      puts "Enter 'y' or 'n'."
+    get_input do |input|
+      if input == "y" || input == "n"
+        handle_game_load if input == "y"
+        break
+      else
+        puts "Enter 'y' or 'n'."
+      end
     end
-    
-    input == "y" ? handle_game_load : return
   end
 
   def handle_game_load
@@ -75,7 +82,6 @@ class Game
     end
 
     from_msgpack(files[input - 1])
-    return
   end
 
   def list_savegames(files)
@@ -157,10 +163,7 @@ class Game
     
     loop do
       input = gets.chomp.downcase
-
-      return input if (input =~ /[A-Za-z]/ && input.size == 1) || input == "save"
-      puts "Enter ONE letter"
-      
+      yield(input)      
     end
   end
 
