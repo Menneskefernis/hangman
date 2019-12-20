@@ -14,11 +14,11 @@ class Game
 
   def start    
     puts "Welcome to a game of Hangman!"
-    puts "You can save your progress any time by typing" + " 'save'".green + "."
+    puts "You can save your progress any time by typing" + " save".green + "."
     puts ""
-    request_old_game
+    request_old_game unless Dir["./save_files/*.dat"].size == 0
  
-    puts current_word
+    #puts current_word
 
     until end_game || attempts_left < 1
       play_round
@@ -66,7 +66,7 @@ class Game
   end
 
   def handle_game_load
-    puts "What game would you like to load?"
+    puts "Which game would you like to load?"
     puts ""
 
     files = Dir["./save_files/*.dat"]
