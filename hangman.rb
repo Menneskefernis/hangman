@@ -72,14 +72,11 @@ class Game
     files = Dir["./save_files/*.dat"]
     list_savegames(files)
 
-    input = ""
-    loop do
-      input = gets.chomp.to_i
-      break if (1 .. files.size).include?(input)
+    get_input do |input|
+      file_number = input.to_i
+      break from_msgpack(files[file_number - 1]) if (1 .. files.size).include?(file_number)
       puts "Enter a file number."
     end
-
-    from_msgpack(files[input - 1])
   end
 
   def list_savegames(files)
