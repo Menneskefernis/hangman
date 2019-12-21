@@ -53,7 +53,7 @@ class Game
   end
 
   def request_old_game
-    puts "Would you like to load an old game? (y/n)".light_blue
+    puts "Would you like to load a saved game? (y/n)".light_blue
     
     get_input do |input|
       if input == "y" || input == "n"
